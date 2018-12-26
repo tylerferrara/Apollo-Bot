@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "description": "Simple facebook messanger bot",
   "main": "index.js",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tylerferrara/Messenger-Bot"
   },
   "author": "Tyler Ferrara",
   "license": "ISC",
