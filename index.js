@@ -4,6 +4,7 @@
 const
   express = require('express'),
   bodyParser = require('body-parser'),
+  path = require('path'),
   app = express().use(bodyParser.json()); // creates express http server
     
 // Creates the endpoint for our webhook 
@@ -30,6 +31,10 @@ app.post('/webhook', (req, res) => {
       res.sendStatus(404);
     }
   
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 // Adds support for GET requests to our webhook
