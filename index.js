@@ -16,31 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
 const global_verify_token = process.env.FB_VERIFY_TOKEN;
 const global_access_token = process.env.FB_ACCESS_TOKEN;
 
-// Creates the endpoint for our webhook 
-app.post('/webhook', (req, res) => {  
- 
-  let body = req.body;
-
-  // Checks this is an event from a page subscription
-  if (body.object === 'page') {
-
-    // Iterates over each entry - there may be multiple if batched
-    body.entry.forEach(function(entry) {
-
-      // Gets the message. entry.messaging is an array, but 
-      // will only ever contain one message, so we get index 0
-      let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
-    });
-
-    // Returns a '200 OK' response to all requests
-    res.status(200).send('EVENT_RECEIVED');
-  } else {
-    // Returns a '404 Not Found' if event is not from a page subscription
-    res.sendStatus(404);
-  }
-
-});
+// GET
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/index.html'));
@@ -67,14 +43,59 @@ app.get('/webhook', (req, res) => {
       res.status(200).send(challenge);
     
     } else {
-      console.log(mode);
-      console.log(token);
-      console.log(VERIFY_TOKEN);
       // Responds with '403 Forbidden' if verify tokens do not match
       res.sendStatus(403);      
     }
   }
 });
+
+// POST
+
+// Creates the endpoint for our webhook 
+app.post('/webhook', (req, res) => {  
+ 
+  let body = req.body;
+
+  // Checks this is an event from a page subscription
+  if (body.object === 'page') {
+
+    // Iterates over each entry - there may be multiple if batched
+    body.entry.forEach(function(entry) {
+
+      // Gets the message. entry.messaging is an array, but 
+      // will only ever contain one message, so we get index 0
+      let webhook_event = entry.messaging[0];
+      // extract user id 
+      let sender_psid = webhook_event.sender.id;
+      console.log('Sender PSID: ' + sender_psid);
+      console.log(webhook_event);
+    });
+
+    // Returns a '200 OK' response to all requests
+    res.status(200).send('EVENT_RECEIVED');
+  } else {
+    // Returns a '404 Not Found' if event is not from a page subscription
+    res.sendStatus(404);
+  }
+
+});
+
+// HELPER FUNCTIONS
+
+// Handles messages events
+function handleMessage(sender_psid, received_message) {
+
+}
+
+// Handles messaging_postbacks events
+function handlePostback(sender_psid, received_postback) {
+
+}
+
+// Sends response messages via the Send API
+function callSendAPI(sender_psid, response) {
+  
+}
 
 const listener = app.listen(process.env.PORT || 1337, () => {
   console.log('Webhook listening on port ' + listener.address().port);
