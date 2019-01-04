@@ -16,6 +16,7 @@
   "author": "Tyler Ferrara",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^6.2.0",
     "express": "^4.16.4"
   }
 }
