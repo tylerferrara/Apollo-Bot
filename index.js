@@ -143,7 +143,7 @@ function handleMessage(sender_psid, received_message) {
         "buttons":[
           {
             "type":"web_url",
-            "url":"https://accounts.spotify.com/authorize?response_type=code&redirect_uri=" + SP_REDIRECT_URI + "&client_id" + SP_CLIENT_ID + "&scope=user-read-private user-read-email",
+            "url":"https://accounts.spotify.com/authorize?response_type=code&redirect_uri=" + SP_REDIRECT_URI + "&client_id=" + SP_CLIENT_ID + "&scope=user-read-private user-read-email",
             "title":"URL Button",
             "webview_height_ratio": "full"
           }
