@@ -27,7 +27,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/close', (req, res) => {
-  console.log(req);
+  console.log(req.params);
+  console.log(req.query);
   res.redirect("https://www.messenger.com/closeWindow/?image_url=none&display_text=Close your window")
 });
 
