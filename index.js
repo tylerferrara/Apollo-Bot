@@ -134,14 +134,32 @@ function handleMessage(sender_psid, received_message) {
     }
   }
 
+  const spotifyRes = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"Login to Spotify",
+        "buttons":[
+          {
+            "type":"web_url",
+            "url":"https://accounts.spotify.com/authorize?response_type=code&redirect_uri=" + SP_REDIRECT_URI + "&scope=user-read-private user-read-email",
+            "title":"URL Button",
+            "webview_height_ratio": "full"
+          }
+        ]
+      }
+    }
+  } 
+
   // Login Spotify
   if (received_message.text == 'login') {
     console.log('Attempting Spotify login.......');
-    authorizeSpotify();
+    callSendAPI(sender_psid, spotifyRes);
+  } else {
+    // Send the response message
+    callSendAPI(sender_psid, response);
   }
-  
-  // Send the response message
-  callSendAPI(sender_psid, response);    
 }
 
 // Handles messaging_postbacks events
@@ -187,23 +205,45 @@ function callSendAPI(sender_psid, response) {
 }
 
 // Authorizes user with spotify cridentials
-function authorizeSpotify() {
+function authorizeSpotify(sender_psid, response) {
+  // Construct the message body
+  let request_body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": response
+  }
+
+  // Send the HTTP request to the Messenger Platform
   request({
-    "uri": "https://accounts.spotify.com/authorize",
-    "qs": {
-      "client_id": SP_CLIENT_ID,
-      "response_type": "code",
-      "redirect_uri": SP_REDIRECT_URI,
-      "scope": "user-read-private user-read-email"
-    }
+    "uri": "https://graph.facebook.com/v2.6/me/messages",
+    "qs": { "access_token": FB_ACCESS_TOKEN },
+    "method": "POST",
+    "json": request_body
   }, (err, res, body) => {
     if (!err) {
-      console.log('User logged into spotify')
+      console.log('message sent!')
     } else {
-      console.error("Unable to connect to spotify:" + err);
+      console.error("Unable to send message:" + err);
     }
-  })
+  }); 
 }
+//   request({
+//     "uri": "https://accounts.spotify.com/authorize",
+//     "qs": {
+//       "client_id": SP_CLIENT_ID,
+//       "response_type": "code",
+//       "redirect_uri": SP_REDIRECT_URI,
+//       "scope": "user-read-private user-read-email"
+//     }
+//   }, (err, res, body) => {
+//     if (!err) {
+//       console.log('User logged into spotify')
+//     } else {
+//       console.error("Unable to connect to spotify:" + err);
+//     }
+//   })
+// }
 
 const listener = app.listen(process.env.PORT || 1337, () => {
   console.log('Webhook listening on port ' + listener.address().port);
