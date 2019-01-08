@@ -134,6 +134,10 @@ function handleMessage(sender_psid, received_message) {
     }
   }
 
+  const imgUrl = "https://media3.s-nbcnews.com/j/newscms/2014_29/573886/ss-140719-apollo-11-01_4396b2820b1792587ced6204c09099fb.fit-760w.jpg";
+  const textWindow = "Close your window";
+  const tempRedUrI = "https://www.messenger.com/closeWindow/?image_url=${imgUrl}&display_text=${textWindow}";
+
   const spotifyRes = {
     "attachment":{
       "type":"template",
@@ -143,7 +147,7 @@ function handleMessage(sender_psid, received_message) {
         "buttons":[
           {
             "type":"web_url",
-            "url":"https://accounts.spotify.com/authorize?response_type=code&redirect_uri=" + SP_REDIRECT_URI + "&client_id=" + SP_CLIENT_ID + "&scope=user-read-private user-read-email",
+            "url":"https://accounts.spotify.com/authorize?response_type=code&redirect_uri=" + tempRedUrI + "&client_id=" + SP_CLIENT_ID + "&scope=user-read-private user-read-email",
             "title":"URL Button",
             "webview_height_ratio": "full"
           }
