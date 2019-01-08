@@ -132,7 +132,13 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     }
-  } 
+  }
+
+  // Login Spotify
+  if (received_message.text == 'login') {
+    console.log('Attempting Spotify login.......');
+    authorizeSpotify();
+  }
   
   // Send the response message
   callSendAPI(sender_psid, response);    
