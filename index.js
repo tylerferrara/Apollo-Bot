@@ -14,8 +14,11 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // grab heroku config vars
-const global_verify_token = process.env.FB_VERIFY_TOKEN;
-const global_access_token = process.env.FB_ACCESS_TOKEN;
+const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
+const FB_ACCESS_TOKEN = process.env.FB_ACCESS_TOKEN;
+const SP_CLIENT_ID = process.env.SP_CLIENT_ID;
+const SP_CLIENT_SECRET = process.env.SP_CLIENT_SECRET;
+const SP_REDIRECT_URI = process.env.SP_REDIRECT_URI;
 
 // GET
 
@@ -27,7 +30,7 @@ app.get('/', (req, res) => {
 app.get('/webhook', (req, res) => {
 
   // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = global_verify_token;
+  let VERIFY_TOKEN = FB_VERIFY_TOKEN;
     
   // Parse the query params
   let mode = req.query['hub.mode'];
@@ -165,7 +168,7 @@ function callSendAPI(sender_psid, response) {
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": global_access_token },
+    "qs": { "access_token": FB_ACCESS_TOKEN },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
@@ -175,6 +178,25 @@ function callSendAPI(sender_psid, response) {
       console.error("Unable to send message:" + err);
     }
   }); 
+}
+
+// Authorizes user with spotify cridentials
+function authorizeSpotify() {
+  request({
+    "uri": "https://accounts.spotify.com/authorize",
+    "qs": {
+      "client_id": SP_CLIENT_ID,
+      "response_type": "code",
+      "redirect_uri": SP_REDIRECT_URI,
+      "scope": "user-read-private user-read-email"
+    }
+  }, (err, res, body) => {
+    if (!err) {
+      console.log('User logged into spotify')
+    } else {
+      console.error("Unable to connect to spotify:" + err);
+    }
+  })
 }
 
 const listener = app.listen(process.env.PORT || 1337, () => {
