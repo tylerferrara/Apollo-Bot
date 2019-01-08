@@ -26,6 +26,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/close', (req, res) => {
+  res.redirect("https://www.messenger.com/closeWindow/?image_url=none&display_text=Close your window")
+});
+
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
 
@@ -134,8 +138,6 @@ function handleMessage(sender_psid, received_message) {
     }
   }
 
-  const tempRedUrI = "https://www.messenger.com/closeWindow/?image_url=none&display_text=Close your window";
-
   const spotifyRes = {
     "attachment":{
       "type":"template",
@@ -145,7 +147,7 @@ function handleMessage(sender_psid, received_message) {
         "buttons":[
           {
             "type":"web_url",
-            "url":"https://accounts.spotify.com/authorize?response_type=code&redirect_uri=" + tempRedUrI + "&client_id=" + SP_CLIENT_ID + "&scope=user-read-private user-read-email",
+            "url":"https://accounts.spotify.com/authorize?response_type=code&redirect_uri=" + SP_REDIRECT_URI + "&client_id=" + SP_CLIENT_ID + "&scope=user-read-private user-read-email",
             "title":"URL Button",
             "webview_height_ratio": "full"
           }
