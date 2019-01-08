@@ -134,9 +134,7 @@ function handleMessage(sender_psid, received_message) {
     }
   }
 
-  const imgUrl = "https://media3.s-nbcnews.com/j/newscms/2014_29/573886/ss-140719-apollo-11-01_4396b2820b1792587ced6204c09099fb.fit-760w.jpg";
-  const textWindow = "Close your window";
-  const tempRedUrI = "https://www.messenger.com/closeWindow/?image_url=${imgUrl}&display_text=${textWindow}";
+  const tempRedUrI = "https://www.messenger.com/closeWindow/?image_url=https://media3.s-nbcnews.com/j/newscms/2014_29/573886/ss-140719-apollo-11-01_4396b2820b1792587ced6204c09099fb.fit-760w.jpg&display_text=Close your window";
 
   const spotifyRes = {
     "attachment":{
