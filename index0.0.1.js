@@ -5,12 +5,24 @@ const
   express = require('express'),
   bodyParser = require('body-parser'),
   path = require('path'),
+  http = require('http'),
   request = require('request'),
   app = express().use(bodyParser.json()); // creates express http server
+
+// PORT  
+let PORT = (process.env.PORT || 1337);
 
 // Load .env 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
+  PORT = (process.env.PORT || 1337);
+  const fs = require('fs');
+  const privateKey = fs.readFileSync('sslcert/key.pem', 'utf8');
+  const certificate = fs.readFileSync('sslcert/cert.pem', 'utf8');
+  const https = require('https');
+  const creds = { key: privateKey, cert: certificate };
+  https.createServer(creds, app).listen(PORT);
+
 }
 
 // grab heroku config vars
@@ -19,6 +31,11 @@ const FB_ACCESS_TOKEN = process.env.FB_ACCESS_TOKEN;
 const SP_CLIENT_ID = process.env.SP_CLIENT_ID;
 const SP_CLIENT_SECRET = process.env.SP_CLIENT_SECRET;
 const SP_REDIRECT_URI = process.env.SP_REDIRECT_URI;
+
+// LISTEN
+// const listener = (process.env.PORT || 1337, () => {
+//   console.log('Webhook listening on port ' + listener.address().port);
+// });
 
 // GET
 
@@ -250,7 +267,3 @@ function authorizeSpotify(sender_psid, response) {
 //     }
 //   })
 // }
-
-const listener = app.listen(process.env.PORT || 1337, () => {
-  console.log('Webhook listening on port ' + listener.address().port);
-});
