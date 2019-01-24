@@ -7,11 +7,12 @@ import { Server } from 'tls';
 import webhook from './webhook/webhook.js';
 
 const app = express().use(bodyParser.json());
+const __PORT__ = 1337;
 
 // Get Enviornment Variables
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').load();
-}
+// if (process.env.NODE_ENV !== 'production') {
+//     require('dotenv').load();
+// }
 
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
 const FB_ACCESS_TOKEN = process.env.FB_ACCESS_TOKEN;
@@ -26,6 +27,6 @@ app.get('/', (req, res) => {
 
 app.use('/webhook', webhook);
 
-app.listen(PORT || 1337, () => {
-  console.log('Server running on port: ' + PORT + '...');
+app.listen(__PORT__, () => {
+  console.log('Server running on port: ' + __PORT__ + '...');
 });
