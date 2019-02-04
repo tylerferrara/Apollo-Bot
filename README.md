@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://www.pastepic.xyz/images/2019/02/03/Apollo-min9a6d9d1c30e77ffe.png" height="150" width="150"/>
   <h1 align="center">Apollo-Bot</h1>
-  <p align="center" style="font-size: 0.5em">Never miss another performance from your favorite artist 🎤</p>
+  <p align="center" style="font-size: 0.5em">Never miss another performance from your favorite artist 🎟️</p>
 </p>
 
 
@@ -10,11 +10,13 @@
 
 Apollo is a chatbot that can find concerts near you.
 
-**See them Live.** Be the first to grab your tickets to the shows of your favorite artists.
+### Features
 
-**No More Spam.** Apollo will not blow up your phone with stupid updates. Only see the information that your care about.
+🎤**See them Live.** Be the first to grab your tickets to the shows of your favorite artists.
 
-**Discover New Artists.** By learning what you like best, Apollo can match you with bands that suit your taste.
+🚫**No More Spam.** Apollo will not blow up your phone with stupid updates. Only see the information that your care about.
+
+🔎**Discover New Artists.** By learning what you like best, Apollo can match you with bands that suit your taste.
 
 
 ### Development
