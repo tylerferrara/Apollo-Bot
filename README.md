@@ -10,11 +10,11 @@
 
 Apollo is a chatbot that can find concerts near you.
 
-See them Live. Be the first to grab your tickets to the shows of your favorite artists.
+**See them Live.** Be the first to grab your tickets to the shows of your favorite artists.
 
-No More Spam. Apollo will not blow up your phone with stupid updates. Only see the information that your care about.
+**No More Spam.** Apollo will not blow up your phone with stupid updates. Only see the information that your care about.
 
-Discover New Artists. By learning what you like best, Apollo can match you with bands that suit your taste.
+**Discover New Artists.** By learning what you like best, Apollo can match you with bands that suit your taste.
 
 
 ### Development
